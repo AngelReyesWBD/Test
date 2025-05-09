@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Status Dashboard</title>
+</head>
+<body>
+  <h1>Service Status</h1>
+
+  <p>Network: <span id="network-status">Loading...</span> (<span id="network-updated">-</span>)</p>
+  <p>Email: <span id="email-status">Loading...</span> (<span id="email-updated">-</span>)</p>
+  <p>Cloud: <span id="cloud-status">Loading...</span> (<span id="cloud-updated">-</span>)</p>
+
+  <script>
+    fetch('https://AngelReyesWBD.github.io/service-status-dashboard/status-data.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('network-status').textContent = data.network.status;
+        document.getElementById('network-updated').textContent = data.network.lastUpdated;
+        document.getElementById('email-status').textContent = data.email.status;
+        document.getElementById('email-updated').textContent = data.email.lastUpdated;
+        document.getElementById('cloud-status').textContent = data.cloud.status;
+        document.getElementById('cloud-updated').textContent = data.cloud.lastUpdated;
+      });
+  </script>
+</body>
+</html>
