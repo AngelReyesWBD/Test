@@ -1,0 +1,14 @@
+{
+  "network": {
+    "status": "unknown",
+    "lastUpdated": "Never"
+  },
+  "email": {
+    "status": "unknown",
+    "lastUpdated": "Never"
+  },
+  "cloud": {
+    "status": "unknown",
+    "lastUpdated": "Never"
+  }
+}
