@@ -1,0 +1,43 @@
+name: Update Status
+
+on:
+  workflow_dispatch:
+    inputs:
+      network_status:
+        description: 'Network Status'
+        required: true
+      email_status:
+        description: 'Email Status'
+        required: true
+      cloud_status:
+        description: 'Cloud Status'
+        required: true
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update status file
+        run: |
+          echo '{
+            "network": {
+              "status": "${{ github.event.inputs.network_status }}",
+              "lastUpdated": "'$(date +"%b %d, %Y %I:%M %p")'"
+            },
+            "email": {
+              "status": "${{ github.event.inputs.email_status }}",
+              "lastUpdated": "'$(date +"%b %d, %Y %I:%M %p")'"
+            },
+            "cloud": {
+              "status": "${{ github.event.inputs.cloud_status }}",
+              "lastUpdated": "'$(date +"%b %d, %Y %I:%M %p")'"
+            }
+          }' > status-data.json
+      - name: Commit and push
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add status-data.json
+          git commit -m "Update service status"
+          git push
